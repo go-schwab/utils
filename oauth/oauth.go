@@ -43,8 +43,6 @@ const (
 	// If IP is not 127.0.0.1 DEVICE_NAME must be set. It can be any short string.
 	IP          = "127.0.0.1"
 	DEVICE_NAME = ""
-	// PORT is the port that the temporary oauth server will listen on
-	PORT = 8888
 	// seconds to wait before giving up on auth and exiting
 	authTimeout                = 180
 	oauthStateStringContextKey = 987
@@ -131,7 +129,7 @@ func authenticateUser(oauthConfig *oauth2.Config, options ...AuthenticateUserOpt
 
 	// Redirect user to consent page to ask for permission
 	// for the scopes specified above.
-	oauthConfig.RedirectURL = fmt.Sprintf("https://%s:%s", IP, strconv.Itoa(PORT))
+	oauthConfig.RedirectURL = fmt.Sprintf("https://%s", IP)
 	// Some random string, random for each request
 	oauthStateString := randSeq(16)
 	ctx = context.WithValue(ctx, oauthStateStringContextKey, oauthStateString)
