@@ -48,9 +48,6 @@ const (
 	// seconds to wait before giving up on auth and exiting
 	authTimeout                = 180
 	oauthStateStringContextKey = 987
-
-	firefoxPath    = "/usr/bin/firefox"
-	firefoxProfile = "SchwabFirefoxProfile"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -196,7 +193,7 @@ func startHTTPServer(ctx context.Context, conf *oauth2.Config) (clientChan chan 
 
 	http.HandleFunc("/", callbackHandler(ctx, conf, clientChan))
 
-	srv := &http.Server{Addr: ":" + strconv.Itoa(PORT)}
+	srv := &http.Server{Addr: fmt.Sprintf("https://%s", IP)}
 
 	// handle server shutdown signal
 	go func() {
